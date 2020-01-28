@@ -1,0 +1,134 @@
+﻿@page "/deleteemployee/{id}"
+@inject NavigationManager NavigationManager
+@inject IEmployeeService EmployeeService
+
+<h2>Confirm Delete</h2>
+<p>Are you sure you want to delete this Employee with Id :<b> @id</b></p>
+<br />
+<div class="col-md-4">
+    <table class="table">
+        <tr>
+            <td>Имя</td>
+            <td>@employee.Name</td>
+        </tr>
+        <tr>
+            <td>Фамилия</td>
+            <td>@employee.Surname</td>
+        </tr>
+        <tr>
+            <td>Отчество</td>
+            <td>@employee.Lastname</td>
+        </tr>
+        <tr>
+            <td>День рождения</td>
+            <td>@employee.Birthday</td>
+        </tr>
+        <tr>
+            <td>Пол</td>
+            <td>@employee.Sex</td>
+        </tr>
+        <tr>
+            <td>Серия паспорта</td>
+            <td>@employee.PassportSeries</td>
+        </tr>
+        <tr>
+            <td>Номер паспорта</td>
+            <td>@employee.PassportSeries</td>
+        </tr>
+        <tr>
+            <td>Кем выдан</td>
+            <td>@employee.PassportGiver</td>
+        </tr>
+        <tr>
+            <td>Дата выдачи</td>
+            <td>@employee.PassportGiveDate</td>
+        </tr>
+        <tr>
+            <td>Идент. номер</td>
+            <td>@employee.IdentityNumber</td>
+        </tr>
+        <tr>
+            <td>Место рождения</td>
+            <td>@employee.Birthplace</td>
+        </tr>
+        <tr>
+            <td>Город проживания</td>
+            <td>@employee.City.Name</td>
+        </tr>
+        <tr>
+            <td>Адрес проживания</td>
+            <td>@employee.Address</td>
+        </tr>
+        <tr>
+            <td>Телефон дом</td>
+            <td>@employee.PhoneHome</td>
+        </tr>
+        <tr>
+            <td>Телефон моб</td>
+            <td>@employee.PhoneMobile</td>
+        </tr>
+        <tr>
+            <td>E-mail</td>
+            <td>@employee.Email</td>
+        </tr>
+        <tr>
+            <td>Место работы</td>
+            <td>@employee.Workplace</td>
+        </tr>
+        <tr>
+            <td>Должность</td>
+            <td>@employee.WorkPosition</td>
+        </tr>
+        <tr>
+            <td>Семейное положение</td>
+            <td>@employee.FamilyPosition.Position</td>
+        </tr>
+        <tr>
+            <td>Гражданство</td>
+            <td>@employee.Citizenship.Name</td>
+        </tr>
+        <tr>
+            <td>Инвалидность</td>
+            <td>@employee.Disability.Name</td>
+        </tr>
+        <tr>
+            <td>Пенсионер</td>
+            <td>@employee.Pensioner</td>
+        </tr>
+        <tr>
+            <td>Ежемесячный доход</td>
+            <td>@employee.Income</td>
+        </tr>
+        <tr>
+            <td>Военнообязанный</td>
+            <td>@employee.Military</td>
+        </tr>
+    </table>
+    <div class="form-group">
+        <input type="button" value="Delete" @onclick="@Delete" class="btn btn-primary" />
+        <input type="button" value="Cancel" @onclick="@Cancel" class="btn" />
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public string id { get; set; }
+    Employee employee = new Employee();
+
+    protected override async Task OnInitializedAsync()
+    {
+        employee = await EmployeeService.SingleEmployee(id);
+    }
+
+    protected async Task Delete()
+    {
+        await EmployeeService.DeleteEmployee(id);
+        NavigationManager.NavigateTo("listemployees");
+    }
+
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("listemployees");
+    }
+}   
