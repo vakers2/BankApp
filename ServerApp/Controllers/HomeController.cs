@@ -30,11 +30,11 @@ namespace ServerApp.Controllers
         [Route("add")]
         public IActionResult AddUser()
         {
-            return View();
+            return View(employeeService.GetCreatioInfo());
         }
 
         [HttpPost]
-        public IActionResult AddUser([FromBody]Employee user)
+        public IActionResult SaveUser(Employee user)
         {
             employeeService.CreateEmployee(user);
             return RedirectToAction("Index");

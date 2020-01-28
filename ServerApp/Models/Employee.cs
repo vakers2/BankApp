@@ -57,13 +57,14 @@ namespace ServerApp.Models
         public string WorkPosition { get; set; }
 
         [Required]
-        public FamilyPosition FamilyPosition { get; set; }
+        public int FamilyPositionId { get; set; }
 
         [Required]
-        public Citizenship Citizenship { get; set; }
+        public int CitizenshipId { get; set; }
 
         [Required]
-        public Disability Disability { get; set; }
+        public int DisabilityId { get; set; }
+
 
         [Required]
         public bool Pensioner { get; set; }
@@ -72,5 +73,12 @@ namespace ServerApp.Models
 
         [Required]
         public bool Military { get; set; }
+
+
+        public FamilyPosition FamilyPosition { get; set; }
+
+        public Citizenship Citizenship { get; set; }
+
+        public Disability Disability { get; set; }
     }
 }

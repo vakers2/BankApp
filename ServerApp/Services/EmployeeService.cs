@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ServerApp.DataAccess;
@@ -60,6 +61,17 @@ namespace ServerApp.Services
             _dbContext.Employees.Remove(patient);
             await _dbContext.SaveChangesAsync();
             return true;
+        }
+
+        public Info GetCreationInfo()
+        {
+            return new Info()
+            {
+                Citizenships = _dbContext.Citizenships.ToList(),
+                Disabilities = _dbContext.Disabilities.ToList(),
+                Cities = _dbContext.Cities.ToList(),
+                FamilyPositions = _dbContext.FamilyPositions.ToList()
+            };
         }
     }
 }

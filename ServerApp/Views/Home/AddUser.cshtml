@@ -1,116 +1,120 @@
-﻿@{
+﻿@model Info
+@{
     ViewBag.Title = "";
     Layout = "_Layout";
 }
 
-<h2>Create Employee</h2>
+<h2>Создать пользователя</h2>
 <hr />
-<form asp-action="AddUser" method="post">
+<form asp-controller="Home" asp-action="SaveUser" method="post">
     <div class="row">
+        <div class="col-md-2"></div>
         <div class="col-md-8">
             <div class="form-group">
                 <label for="Name" class="control-label">Имя</label>
-                <input for="Name" class="form-control" name="Name" />
+                <input for="Name" class="form-control" name="Name"/>
             </div>
             <div class="form-group">
                 <label for="Surname" class="control-label">Фамилия</label>
-                <input for="Surname" class="form-control" name="Surname" />
+                <input for="Surname" class="form-control" name="Surname"/>
             </div>
             <div class="form-group">
                 <label for="Lastname" class="control-label">Отчество</label>
-                <input for="Lastname" class="form-control" name="Lastname" />
+                <input for="Lastname" class="form-control" name="Lastname"/>
             </div>
             <div class="form-group">
                 <label for="Birthday" class="control-label">День рождения</label>
-                <input for="Birthday" class="form-control" name="Birthday" />
+                <input type="date" for="Birthday" class="form-control" name="Birthday"/>
             </div>
             <div class="form-group">
                 <label for="Sex" class="control-label">Пол</label>
-                <input type="radio" for="Sex" class="form-control" name="Sex" />
+                <div>Мужской <input type="radio" for="Sex" name="Sex" value="0"/> </div>
+                <div>Женский <input type="radio" for="Sex" name="Sex" value="1"/> </div>
             </div>
             <div class="form-group">
                 <label for="PassportSeries" class="control-label">Серия паспорта</label>
-                <input for="PassportSeries" class="form-control" name="PassportSeries" />
+                <input for="PassportSeries" class="form-control" name="PassportSeries"/>
             </div>
             <div class="form-group">
                 <label for="PassportNumber" class="control-label">Номер паспорта</label>
-                <input for="PassportNumber" class="form-control" name="PassportNumber" />
+                <input for="PassportNumber" class="form-control" name="PassportNumber"/>
             </div>
             <div class="form-group">
                 <label for="PassportGiver" class="control-label">Кем выдан</label>
-                <input for="PassportGiver" class="form-control" name="PassportGiver" />
+                <input for="PassportGiver" class="form-control" name="PassportGiver"/>
             </div>
             <div class="form-group">
                 <label for="PassportGiveDate" class="control-label">Дата выдачи</label>
-                <input for="PassportGiveDate" class="form-control" name="PassportGiveDate" />
+                <input type="date" for="PassportGiveDate" class="form-control" name="PassportGiveDate"/>
             </div>
             <div class="form-group">
                 <label for="IdentityNumber" class="control-label">Идент. номер</label>
-                <input for="IdentityNumber" class="form-control" name="IdentityNumber" />
+                <input for="IdentityNumber" class="form-control" name="IdentityNumber"/>
             </div>
             <div class="form-group">
                 <label for="Birthplace" class="control-label">Место рождения</label>
-                <input for="Birthplace" class="form-control" name="Birthplace" />
+                <input for="Birthplace" class="form-control" name="Birthplace"/>
             </div>
             <div class="form-group">
                 <label for="City" class="control-label">Город проживания</label>
-                <input for="City" class="form-control" name="City.Name" />
+                <input for="City" class="form-control" name="City.Name"/>
             </div>
             <div class="form-group">
                 <label for="Address" class="control-label">Адрес проживания</label>
-                <input for="Address" class="form-control" name="Address" />
+                <input for="Address" class="form-control" name="Address"/>
             </div>
             <div class="form-group">
                 <label for="PhoneHome" class="control-label">Телефон дом</label>
-                <input for="PhoneHome" class="form-control" name="PhoneHome" />
+                <input for="PhoneHome" class="form-control" name="PhoneHome"/>
             </div>
             <div class="form-group">
                 <label for="PhoneMobile" class="control-label">Телефон моб</label>
-                <input for="PhoneMobile" class="form-control" name="PhoneMobile" />
+                <input for="PhoneMobile" class="form-control" name="PhoneMobile"/>
             </div>
             <div class="form-group">
                 <label for="Email" class="control-label">E-mail</label>
-                <input for="Email" class="form-control" name="Email" />
+                <input for="Email" class="form-control" name="Email"/>
             </div>
             <div class="form-group">
                 <label for="Workplace" class="control-label">Место работы</label>
-                <input for="Workplace" class="form-control" name="Workplace" />
+                <input for="Workplace" class="form-control" name="Workplace"/>
             </div>
             <div class="form-group">
                 <label for="WorkPosition" class="control-label">Должность</label>
-                <input for="WorkPosition" class="form-control" name="WorkPosition" />
+                <input for="WorkPosition" class="form-control" name="WorkPosition"/>
             </div>
             <div class="form-group">
                 <label for="FamilyPosition" class="control-label">Семейное положение</label>
-                <input for="FamilyPosition" class="form-control" name="FamilyPosition.Position" />
+                <input for="FamilyPosition" class="form-control" name="FamilyPosition.Position"/>
             </div>
             <div class="form-group">
                 <label for="Citizenship" class="control-label">Гражданство</label>
-                <input for="Citizenship" class="form-control" name="Citizenship.Name" />
+                <input for="Citizenship" class="form-control" name="Citizenship.Name"/>
             </div>
             <div class="form-group">
                 <label for="Disability" class="control-label">Инвалидность</label>
-                <input for="Disability" class="form-control" name="Disability.Name" />
+                <input for="Disability" class="form-control" name="Disability.Name"/>
             </div>
             <div class="form-group">
                 <label for="Pensioner" class="control-label">Пенсионер</label>
-                <input type="checkbox" for="Pensioner" class="form-control" name="Pensioner" />
+                <input type="checkbox" for="Pensioner" name="Pensioner"/>
             </div>
             <div class="form-group">
                 <label for="Income" class="control-label">Ежемесячный доход</label>
-                <input for="Income" class="form-control" name="Income" />
+                <input for="Income" class="form-control" name="Income"/>
             </div>
             <div class="form-group">
                 <label for="Military" class="control-label">Военнообязанный</label>
-                <input type="checkbox" for="Military" class="form-control" name="Military" />
+                <input type="checkbox" for="Military" name="Military"/>
             </div>
         </div>
     </div>
     <div class="row">
+        <div class="col-md-2"></div>
         <div class="col-md-4">
             <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Save" />
-                <input type="button" class="btn" value="Cancel" />
+                <input type="submit" class="btn btn-primary" value="Сохранить"/>
+                <input type="button" class="btn" value="Отмена"/>
             </div>
         </div>
     </div>

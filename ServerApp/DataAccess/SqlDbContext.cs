@@ -10,5 +10,9 @@ namespace ServerApp.DataAccess
         {
         }
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Citizenship> Citizenships { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<Disability> Disabilities { get; set; }
+        public DbSet<FamilyPosition> FamilyPositions { get; set; }
     }
 }
