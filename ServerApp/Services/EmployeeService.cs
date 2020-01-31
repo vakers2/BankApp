@@ -18,23 +18,15 @@ namespace ServerApp.Services
         }
         public async Task<List<Employee>> GetEmployees()
         {
-            return await _dbContext.Employees.ToListAsync();
+            return await _dbContext.Employees.Include(x => x.Citizenship).Include(x => x.City).Include(x => x.FamilyPosition).Include(x => x.Disability).ToListAsync();
         }
-        public async Task<bool> CreateEmployee(Employee employee)
+        public async Task CreateEmployee(Employee employee)
         {
             employee.Id = Guid.NewGuid().ToString();
-            _dbContext.Add(employee);
-            try
-            {
-                await _dbContext.SaveChangesAsync();
-                return true;
-            }
-            catch (DbUpdateException)
-            {
-                return false;
-            }
-
+            _dbContext.Employees.Add(employee);
+            await _dbContext.SaveChangesAsync();
         }
+
         public async Task<Employee> SingleEmployee(string id)
         {
             return await _dbContext.Employees.FindAsync(id);
@@ -67,10 +59,10 @@ namespace ServerApp.Services
         {
             return new Info()
             {
-                Citizenships = _dbContext.Citizenships.ToList(),
-                Disabilities = _dbContext.Disabilities.ToList(),
-                Cities = _dbContext.Cities.ToList(),
-                FamilyPositions = _dbContext.FamilyPositions.ToList()
+                Citizenships = _dbContext.Citizenship.ToList(),
+                Disabilities = _dbContext.Disability.ToList(),
+                Cities = _dbContext.City.ToList(),
+                FamilyPositions = _dbContext.FamilyPosition.ToList()
             };
         }
     }

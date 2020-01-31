@@ -7,43 +7,43 @@ namespace ServerApp.Models
     {
         public string Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Поле обязательно для заполнения")]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Поле обязательно для заполнения")]
         public string Surname { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Поле обязательно для заполнения")]
         public string Lastname { get; set; }
 
-        [Required]
-        public DateTime Birthday { get; set; }        
-        
-        [Required]
-        public bool Sex { get; set; }
+        [Required(ErrorMessage = "Поле обязательно для заполнения")]
+        public DateTime Birthday { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Поле обязательно для заполнения")]
+        public Sex Sex { get; set; }
+
+        [Required(ErrorMessage = "Поле обязательно для заполнения")]
         public string PassportSeries { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Поле обязательно для заполнения")]
         public string PassportNumber { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Поле обязательно для заполнения")]
         public string PassportGiver { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Поле обязательно для заполнения")]
         public DateTime PassportGiveDate { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Поле обязательно для заполнения")]
         public string IdentityNumber { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Поле обязательно для заполнения")]
         public string Birthplace { get; set; }
 
-        [Required]
-        public City City { get; set; }
+        [Required(ErrorMessage = "Поле обязательно для заполнения")]
+        public int CityId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Поле обязательно для заполнения")]
         public string Address { get; set; }
 
         public string PhoneHome { get; set; }
@@ -56,24 +56,22 @@ namespace ServerApp.Models
 
         public string WorkPosition { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Поле обязательно для заполнения")]
         public int FamilyPositionId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Поле обязательно для заполнения")]
         public int CitizenshipId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Поле обязательно для заполнения")]
         public int DisabilityId { get; set; }
 
-
-        [Required]
         public bool Pensioner { get; set; }
 
         public int Income { get; set; }
 
-        [Required]
         public bool Military { get; set; }
 
+        public City City { get; set; }
 
         public FamilyPosition FamilyPosition { get; set; }
 

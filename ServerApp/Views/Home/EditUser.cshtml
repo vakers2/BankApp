@@ -1,0 +1,134 @@
+﻿@model (Employee user, Info info)
+@{
+    ViewBag.Title = "";
+    Layout = "_Layout";
+    var maleCheck = Model.user.Sex == Sex.Male ? "checked" : "";
+    var femaleCheck = Model.user.Sex == Sex.Female ? "checked" : "";
+    var pensionerCheck = Model.user.Pensioner == true ? "checked" : "";
+    var militaryCheck = Model.user.Military == true ? "checked" : "";
+}
+
+<h2>Изменить пользователя</h2>
+<hr />
+<form asp-controller="Home" asp-action="Edit" method="post">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <input type="hidden" name="Id" value="@Model.user.Id"/>
+            <div class="form-group">
+                <label for="Name" class="control-label">Имя</label>
+                <input for="Name" class="form-control" name="Name" value="@Model.user.Name"/>
+            </div>
+            <div class="form-group">
+                <label for="Surname" class="control-label">Фамилия</label>
+                <input for="Surname" class="form-control" name="Surname" value="@Model.user.Surname"/>
+            </div>
+            <div class="form-group">
+                <label for="Lastname" class="control-label">Отчество</label>
+                <input for="Lastname" class="form-control" name="Lastname" value="@Model.user.Lastname"/>
+            </div>
+            <div class="form-group">
+                <label for="Birthday" class="control-label">День рождения</label>
+                <input for="Birthday" asp-for="user.Birthday" class="form-control" name="Birthday"/>
+            </div>
+            <div class="form-group">
+                <label for="Sex" class="control-label">Пол</label>
+                <div>Мужской <input type="radio" for="Sex" name="Sex" value="Male" @maleCheck/> </div>
+                <div>Женский <input type="radio" for="Sex" name="Sex" value="Female" @femaleCheck/> </div>
+            </div>
+            <div class="form-group">
+                <label for="PassportSeries" class="control-label">Серия паспорта</label>
+                <input for="PassportSeries" class="form-control" name="PassportSeries" value="@Model.user.PassportSeries"/>
+            </div>
+            <div class="form-group">
+                <label for="PassportNumber" class="control-label">Номер паспорта</label>
+                <input for="PassportNumber" class="form-control" name="PassportNumber" value="@Model.user.PassportNumber"/>
+            </div>
+            <div class="form-group">
+                <label for="PassportGiver" class="control-label">Кем выдан</label>
+                <input for="PassportGiver" class="form-control" name="PassportGiver" value="@Model.user.PassportGiver"/>
+            </div>
+            <div class="form-group">
+                <label for="PassportGiveDate" class="control-label">Дата выдачи</label>
+                <input asp-for="user.PassportGiveDate" for="PassportGiveDate" class="form-control" name="PassportGiveDate"/>
+            </div>
+            <div class="form-group">
+                <label for="IdentityNumber" class="control-label">Идент. номер</label>
+                <input for="IdentityNumber" class="form-control" name="IdentityNumber" value="@Model.user.IdentityNumber"/>
+            </div>
+            <div class="form-group">
+                <label for="Birthplace" class="control-label">Место рождения</label>
+                <input for="Birthplace" class="form-control" name="Birthplace" value="@Model.user.Birthplace"/>
+            </div>
+            <div class="form-group">
+                <label for="City" class="control-label">Город проживания</label>
+                <select for="CityId" asp-for="user.CityId" name="CityId" asp-items="@(new SelectList(Model.info.Cities, "Id", "Name"))">
+                    <option>Выберите одно</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="Address" class="control-label">Адрес проживания</label>
+                <input for="Address" class="form-control" name="Address" value="@Model.user.Address"/>
+            </div>
+            <div class="form-group">
+                <label for="PhoneHome" class="control-label">Телефон дом</label>
+                <input for="PhoneHome" class="form-control" name="PhoneHome" value="@Model.user.PhoneHome"/>
+            </div>
+            <div class="form-group">
+                <label for="PhoneMobile" class="control-label">Телефон моб</label>
+                <input for="PhoneMobile" class="form-control" name="PhoneMobile" value="@Model.user.PhoneMobile"/>
+            </div>
+            <div class="form-group">
+                <label for="Email" class="control-label">E-mail</label>
+                <input for="Email" class="form-control" name="Email" value="@Model.user.Email"/>
+            </div>
+            <div class="form-group">
+                <label for="Workplace" class="control-label">Место работы</label>
+                <input for="Workplace" class="form-control" name="Workplace" value="@Model.user.Workplace"/>
+            </div>
+            <div class="form-group">
+                <label for="WorkPosition" class="control-label">Должность</label>
+                <input for="WorkPosition" class="form-control" name="WorkPosition" value="@Model.user.WorkPosition"/>
+            </div>
+            <div class="form-group">
+                <label for="FamilyPosition" class="control-label">Семейное положение</label>
+                <select for="FamilyPositionId" asp-for="user.FamilyPositionId" name="FamilyPositionId" asp-items="@(new SelectList(Model.info.FamilyPositions, "Id", "Position"))">
+                    <option>Выберите одно</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="Citizenship" class="control-label">Гражданство</label>
+                <select for="CitizenshipId" asp-for="user.CitizenshipId" name="CitizenshipId" asp-items="@(new SelectList(Model.info.Citizenships, "Id", "Name"))">
+                    <option>Выберите одно</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="Disability" class="control-label">Инвалидность</label>
+                <select for="DisabilityId" asp-for="user.DisabilityId" name="DisabilityId" asp-items="@(new SelectList(Model.info.Disabilities, "Id", "Name"))">
+                    <option>Выберите одно</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="Pensioner" class="control-label">Пенсионер</label>
+                <input type="checkbox" for="Pensioner" name="Pensioner" @pensionerCheck/>
+            </div>
+            <div class="form-group">
+                <label for="Income" class="control-label">Ежемесячный доход</label>
+                <input for="Income" class="form-control" name="Income" value="@Model.user.Income"/>
+            </div>
+            <div class="form-group">
+                <label for="Military" class="control-label">Военнообязанный</label>
+                <input type="checkbox" for="Military" name="Military" @militaryCheck/>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Сохранить"/>
+                <input type="button" class="btn" value="Отмена"/>
+            </div>
+        </div>
+    </div>
+</form>

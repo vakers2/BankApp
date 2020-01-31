@@ -1,71 +1,85 @@
 ﻿@model List<Employee>
 @{
     ViewData["Title"] = "Home Page";
+
+    string GetBoolString(bool kek)
+    {
+        return kek ? "Да" : "Нет";
+    }
+
+    string GetSexString(Sex sex)
+    {
+        return sex == Sex.Male ? "Мужчина" : "Женщина";
+    }
 }
 
 <table class='table'>
     <thead>
-        <tr>
-            <th>Имя</th>
-            <th>Фамилия</th>
-            <th>Отчество</th>
-            <th>День рождения</th>
-            <th>Пол</th>
-            <th>Серия паспорта</th>
-            <th>Номер паспорта</th>
-            <th>Кем выдан</th>
-            <th>Дата выдачи</th>
-            <th>Идент. номер</th>
-            <th>Место рождения</th>
-            <th>Город проживания</th>
-            <th>Адрес проживания</th>
-            <th>Телефон дом</th>
-            <th>Телефон моб</th>
-            <th>E-mail</th>
-            <th>Место работы</th>
-            <th>Должность</th>
-            <th>Семейное положение</th>
-            <th>Гражданство</th>
-            <th>Инвалидность</th>
-            <th>Пенсионер</th>
-            <th>Ежемесячный доход</th>
-            <th>Военнообязанный</th>
-            <th>Действия</th>
-        </tr>
+    <tr>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Отчество</th>
+        <th>День рождения</th>
+        <th>Пол</th>
+        <th>Серия паспорта</th>
+        <th>Номер паспорта</th>
+        <th>Кем выдан</th>
+        <th>Дата выдачи</th>
+        <th>Идент. номер</th>
+        <th>Место рождения</th>
+        <th>Город проживания</th>
+        <th>Адрес проживания</th>
+        <th>Телефон дом</th>
+        <th>Телефон моб</th>
+        <th>E-mail</th>
+        <th>Место работы</th>
+        <th>Должность</th>
+        <th>Семейное положение</th>
+        <th>Гражданство</th>
+        <th>Инвалидность</th>
+        <th>Пенсионер</th>
+        <th>Ежемесячный доход</th>
+        <th>Военнообязанный</th>
+        <th>Действия</th>
+    </tr>
     </thead>
     <tbody>
-        @foreach (var employee in Model)
-        {
-            <tr>
-                <td>@employee.Name</td>
-                <td>@employee.Surname</td>
-                <td>@employee.Lastname</td>
-                <td>@employee.Birthday</td>
-                <td>@employee.Sex</td>
-                <td>@employee.PassportSeries</td>
-                <td>@employee.PassportNumber</td>
-                <td>@employee.PassportGiver</td>
-                <td>@employee.PassportGiveDate</td>
-                <td>@employee.IdentityNumber</td>
-                <td>@employee.Birthplace</td>
-                <td>@employee.City.Name</td>
-                <td>@employee.Address</td>
-                <td>@employee.PhoneHome</td>
-                <td>@employee.PhoneMobile</td>
-                <td>@employee.Email</td>
-                <td>@employee.Workplace</td>
-                <td>@employee.WorkPosition</td>
-                <td>@employee.FamilyPosition.Position</td>
-                <td>@employee.Citizenship.Name</td>
-                <td>@employee.Disability.Name</td>
-                <td>@employee.Pensioner</td>
-                <td>@employee.Income</td>
-                <td>@employee.Military</td>
-                <td>
-                    <a href='/editemployee/@employee.Id'>Edit</a>
-                    <a href='/deleteemployee/@employee.Id'>Delete</a>
-                </td>
-            </tr>
-        }
+    @foreach (var employee in Model)
+    {
+        <tr>
+            <td>@employee.Name</td>
+            <td>@employee.Surname</td>
+            <td>@employee.Lastname</td>
+            <td>@employee.Birthday.ToString("dd.MM.yyyy")</td>
+            <td>@GetSexString(employee.Sex)</td>
+            <td>@employee.PassportSeries</td>
+            <td>@employee.PassportNumber</td>
+            <td>@employee.PassportGiver</td>
+            <td>@employee.PassportGiveDate.ToString("dd.MM.yyyy")</td>
+            <td>@employee.IdentityNumber</td>
+            <td>@employee.Birthplace</td>
+            <td>@employee.City.Name</td>
+            <td>@employee.Address</td>
+            <td>@employee.PhoneHome</td>
+            <td>@employee.PhoneMobile</td>
+            <td>@employee.Email</td>
+            <td>@employee.Workplace</td>
+            <td>@employee.WorkPosition</td>
+            <td>@employee.FamilyPosition.Position</td>
+            <td>@employee.Citizenship.Name</td>
+            <td>@employee.Disability.Name</td>
+            <td>@GetBoolString(employee.Pensioner)</td>
+            <td>@employee.Income</td>
+            <td>@GetBoolString(employee.Military)</td>
+            <td>
+                <a href='/edit/@employee.Id'>Изменить</a>
+                <a href='/delete/@employee.Id'>Удалить</a>
+            </td>
+        </tr>
+    }
     </tbody>
 </table>
+    
+<div class="form-group">
+    <a href='/add/' style="margin-left: 30px">Добавить</a>
+</div>

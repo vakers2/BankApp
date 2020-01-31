@@ -10,9 +10,9 @@ namespace ServerApp.DataAccess
         {
         }
         public DbSet<Employee> Employees { get; set; }
-        public DbSet<Citizenship> Citizenships { get; set; }
-        public DbSet<City> Cities { get; set; }
-        public DbSet<Disability> Disabilities { get; set; }
-        public DbSet<FamilyPosition> FamilyPositions { get; set; }
+        public DbSet<Citizenship> Citizenship { get; set; }
+        public DbSet<City> City { get; set; }
+        public DbSet<Disability> Disability { get; set; }
+        public DbSet<FamilyPosition> FamilyPosition { get; set; }
     }
 }

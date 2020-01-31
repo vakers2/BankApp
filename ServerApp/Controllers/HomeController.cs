@@ -30,13 +30,34 @@ namespace ServerApp.Controllers
         [Route("add")]
         public IActionResult AddUser()
         {
-            return View(employeeService.GetCreatioInfo());
+            return View((new Employee(), employeeService.GetCreationInfo()));
         }
 
         [HttpPost]
-        public IActionResult SaveUser(Employee user)
+        public async Task<IActionResult> SaveUser(Employee user)
         {
-            employeeService.CreateEmployee(user);
+            await employeeService.CreateEmployee(user);
+            return RedirectToAction("Index");
+        }
+
+        [Route("delete/{id}")]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            await employeeService.DeleteEmployee(id);
+            return RedirectToAction("Index");
+        }
+
+
+        [Route("edit/{id}")]
+        public async Task<IActionResult> EditUser(string id)
+        {
+            return View((await employeeService.SingleEmployee(id), employeeService.GetCreationInfo()));
+        }      
+        
+        [HttpPost]
+        public async Task<IActionResult> Edit(Employee user)
+        {
+            await employeeService.EditEmployee(user.Id, user);
             return RedirectToAction("Index");
         }
 
