@@ -9,12 +9,15 @@ namespace ServerApp.Models
         public string Id { get; set; }
 
         [Required(ErrorMessage = "Поле обязательно для заполнения")]
+        [RegularExpression(@"^[^0-9<>.,?;:'()!~%\-_@#/*""\s]+$", ErrorMessage = "Неверный формат данных")]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Поле обязательно для заполнения")]
+        [RegularExpression(@"^[^0-9<>.,?;:'()!~%_@#/*""\s]+$", ErrorMessage = "Неверный формат данных")]
         public string Surname { get; set; }
 
         [Required(ErrorMessage = "Поле обязательно для заполнения")]
+        [RegularExpression(@"^[^0-9<>.,?;:'()!~%\-_@#/*""\s]+$", ErrorMessage = "Неверный формат данных")]
         public string Lastname { get; set; }
 
         [Required(ErrorMessage = "Поле обязательно для заполнения")]
