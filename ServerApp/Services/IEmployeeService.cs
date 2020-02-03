@@ -11,6 +11,7 @@ namespace ServerApp.Services
         Task<bool> EditEmployee(string id, Employee employee);
         Task<Employee> SingleEmployee(string id);
         Task<bool> DeleteEmployee(string id);
+        bool CheckIfPassportExist(Employee user);
         Info GetCreationInfo();
     }
 }

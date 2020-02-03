@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using ServerApp.Attributes;
 
 namespace ServerApp.Models
 {
@@ -45,7 +44,7 @@ namespace ServerApp.Models
         public string Birthplace { get; set; }
 
         [Required(ErrorMessage = "Поле обязательно для заполнения")]
-        [MinValue(1, ErrorMessage = "Поле обязательно для заполнения")]
+        [Range(1, int.MaxValue, ErrorMessage = "Поле обязательно для заполнения")]
         public int CityId { get; set; }
 
         [Required(ErrorMessage = "Поле обязательно для заполнения")]
@@ -63,15 +62,15 @@ namespace ServerApp.Models
         public string WorkPosition { get; set; }
 
         [Required(ErrorMessage = "Поле обязательно для заполнения")]
-        [MinValue(1, ErrorMessage = "Поле обязательно для заполнения")]
+        [Range(1, int.MaxValue, ErrorMessage = "Поле обязательно для заполнения")]
         public int FamilyPositionId { get; set; }
 
         [Required(ErrorMessage = "Поле обязательно для заполнения")]
-        [MinValue(1, ErrorMessage = "Поле обязательно для заполнения")]
+        [Range(1, int.MaxValue, ErrorMessage = "Поле обязательно для заполнения")]
         public int CitizenshipId { get; set; }
 
         [Required(ErrorMessage = "Поле обязательно для заполнения")]
-        [MinValue(1, ErrorMessage = "Поле обязательно для заполнения")]
+        [Range(1, int.MaxValue, ErrorMessage = "Поле обязательно для заполнения")]
         public int DisabilityId { get; set; }
 
         public bool Pensioner { get; set; }

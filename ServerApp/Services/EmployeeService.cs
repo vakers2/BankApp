@@ -42,6 +42,7 @@ namespace ServerApp.Services
             await _dbContext.SaveChangesAsync();
             return true;
         }
+
         public async Task<bool> DeleteEmployee(string id)
         {
             var patient = await _dbContext.Employees.FindAsync(id);
@@ -53,6 +54,12 @@ namespace ServerApp.Services
             _dbContext.Employees.Remove(patient);
             await _dbContext.SaveChangesAsync();
             return true;
+        }
+
+        public bool CheckIfPassportExist(Employee user)
+        {
+            var users = _dbContext.Employees;
+            return users.Any(x => (x.PassportSeries + x.PassportNumber == user.PassportSeries + user.PassportNumber || x.IdentityNumber == user.IdentityNumber) && x.Id != user.Id);
         }
 
         public Info GetCreationInfo()

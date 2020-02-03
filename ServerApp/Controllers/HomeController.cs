@@ -39,7 +39,13 @@ namespace ServerApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return RedirectToAction("AddUser");
+                return View("AddUser", (item1, employeeService.GetCreationInfo()));
+            }
+
+            if (employeeService.CheckIfPassportExist(item1))
+            {
+                ViewBag.Errors = "Пользователь с такими паспортными данными уже существует.";
+                return View("AddUser", (item1, employeeService.GetCreationInfo()));
             }
 
             await employeeService.CreateEmployee(item1);
@@ -65,7 +71,13 @@ namespace ServerApp.Controllers
         {
             if (!ModelState.IsValid)    
             {
-                return RedirectToAction("Edit");
+                return View("EditUser", (item1, employeeService.GetCreationInfo()));
+            }
+
+            if (employeeService.CheckIfPassportExist(item1))
+            {
+                ViewBag.Errors = "Пользователь с такими паспортными данными уже существует.";
+                return View("EditUser", (item1, employeeService.GetCreationInfo()));
             }
 
             await employeeService.EditEmployee(item1.Id, item1);

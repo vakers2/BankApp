@@ -14,7 +14,8 @@
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">
-            <input type="hidden" name="Id" value="@Model.user.Id"/>
+            <span class="text-danger">@ViewBag.Errors</span>
+            <input type="hidden" name="item1.Id" value="@Model.user.Id"/>
             <div class="form-group">
                 <label for="Name" class="control-label">Имя</label>
                 <input asp-for="user.Name" class="form-control" value="@Model.user.Name"/>
@@ -32,7 +33,7 @@
             </div>
             <div class="form-group">
                 <label for="Birthday" class="control-label">День рождения</label>
-                <input type="date" asp-for="user.Birthday" value="@Model.user.Birthday" class="form-control"/>
+                <input type="date" asp-for="user.Birthday" class="form-control"/>
                 <span asp-validation-for="user.Birthday" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -58,7 +59,7 @@
             </div>
             <div class="form-group">
                 <label for="PassportGiveDate" class="control-label">Дата выдачи</label>
-                <input type="date" asp-for="user.PassportGiveDate" value="@Model.user.PassportGiveDate" class="form-control"/>
+                <input type="date" asp-for="user.PassportGiveDate" class="form-control"/>
                 <span asp-validation-for="user.PassportGiveDate" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -74,9 +75,9 @@
             <div class="form-group">
                 <label for="City" class="control-label">Город проживания</label>
                 <select asp-for="user.CityId" asp-items="@(new SelectList(Model.info.Cities, "Id", "Name"))">
-                    <option>Выберите одно</option>
+                    <option value="0">Выберите одно</option>
                 </select>
-                <span asp-validation-for="user.CityId" class="text-danger"></span>
+                <div><span asp-validation-for="user.CityId" class="text-danger"></span></div>
             </div>
             <div class="form-group">
                 <label for="Address" class="control-label">Адрес проживания</label>
@@ -111,23 +112,23 @@
             <div class="form-group">
                 <label for="FamilyPosition" class="control-label">Семейное положение</label>
                 <select asp-for="user.FamilyPositionId" asp-items="@(new SelectList(Model.info.FamilyPositions, "Id", "Position"))">
-                    <option>Выберите одно</option>
+                    <option value="0">Выберите одно</option>
                 </select>
-                <span asp-validation-for="user.FamilyPositionId" class="text-danger"></span>
+                <div><span asp-validation-for="user.FamilyPositionId" class="text-danger"></span></div>
             </div>
             <div class="form-group">
                 <label for="Citizenship" class="control-label">Гражданство</label>
                 <select asp-for="user.CitizenshipId" asp-items="@(new SelectList(Model.info.Citizenships, "Id", "Name"))">
-                    <option>Выберите одно</option>
+                    <option value="0">Выберите одно</option>
                 </select>
-                <span asp-validation-for="user.CitizenshipId" class="text-danger"></span>
+                <div><span asp-validation-for="user.CitizenshipId" class="text-danger"></span></div>
             </div>
             <div class="form-group">
                 <label for="Disability" class="control-label">Инвалидность</label>
                 <select asp-for="user.DisabilityId" asp-items="@(new SelectList(Model.info.Disabilities, "Id", "Name"))">
-                    <option>Выберите одно</option>
+                    <option value="0">Выберите одно</option>
                 </select>
-                <span asp-validation-for="user.DisabilityId" class="text-danger"></span>
+                <div><span asp-validation-for="user.DisabilityId" class="text-danger"></span></div>
             </div>
             <div class="form-group">
                 <label for="Pensioner" class="control-label">Пенсионер</label>
