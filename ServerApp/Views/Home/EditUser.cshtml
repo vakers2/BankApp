@@ -10,115 +10,139 @@
 
 <h2>Изменить пользователя</h2>
 <hr />
-<form asp-controller="Home" asp-action="Edit" method="post">
+<form asp-controller="Home" asp-action="EditUser" method="post">
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">
             <input type="hidden" name="Id" value="@Model.user.Id"/>
             <div class="form-group">
                 <label for="Name" class="control-label">Имя</label>
-                <input for="Name" class="form-control" name="Name" value="@Model.user.Name"/>
+                <input asp-for="user.Name" class="form-control" value="@Model.user.Name"/>
+                <span asp-validation-for="user.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="Surname" class="control-label">Фамилия</label>
-                <input for="Surname" class="form-control" name="Surname" value="@Model.user.Surname"/>
+                <input asp-for="user.Surname" class="form-control" value="@Model.user.Surname"/>
+                <span asp-validation-for="user.Surname" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="Lastname" class="control-label">Отчество</label>
-                <input for="Lastname" class="form-control" name="Lastname" value="@Model.user.Lastname"/>
+                <input asp-for="user.Lastname" class="form-control" value="@Model.user.Lastname"/>
+                <span asp-validation-for="user.Lastname" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="Birthday" class="control-label">День рождения</label>
-                <input for="Birthday" asp-for="user.Birthday" class="form-control" name="Birthday"/>
+                <input type="date" asp-for="user.Birthday" value="@Model.user.Birthday" class="form-control"/>
+                <span asp-validation-for="user.Birthday" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="Sex" class="control-label">Пол</label>
-                <div>Мужской <input type="radio" for="Sex" name="Sex" value="Male" @maleCheck/> </div>
-                <div>Женский <input type="radio" for="Sex" name="Sex" value="Female" @femaleCheck/> </div>
+                <div>Мужской <input type="radio" asp-for="user.Sex" value="Male"/> </div>
+                <div>Женский <input type="radio" asp-for="user.Sex" value="Female"/> </div>
+                <span asp-validation-for="user.Sex" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="PassportSeries" class="control-label">Серия паспорта</label>
-                <input for="PassportSeries" class="form-control" name="PassportSeries" value="@Model.user.PassportSeries"/>
+                <input asp-for="user.PassportSeries" class="form-control" value="@Model.user.PassportSeries"/>
+                <span asp-validation-for="user.PassportSeries" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="PassportNumber" class="control-label">Номер паспорта</label>
-                <input for="PassportNumber" class="form-control" name="PassportNumber" value="@Model.user.PassportNumber"/>
+                <input asp-for="user.PassportNumber" class="form-control" value="@Model.user.PassportNumber"/>
+                <span asp-validation-for="user.PassportNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="PassportGiver" class="control-label">Кем выдан</label>
-                <input for="PassportGiver" class="form-control" name="PassportGiver" value="@Model.user.PassportGiver"/>
+                <input asp-for="user.PassportGiver" class="form-control" value="@Model.user.PassportGiver"/>
+                <span asp-validation-for="user.PassportGiver" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="PassportGiveDate" class="control-label">Дата выдачи</label>
-                <input asp-for="user.PassportGiveDate" for="PassportGiveDate" class="form-control" name="PassportGiveDate"/>
+                <input type="date" asp-for="user.PassportGiveDate" value="@Model.user.PassportGiveDate" class="form-control"/>
+                <span asp-validation-for="user.PassportGiveDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="IdentityNumber" class="control-label">Идент. номер</label>
-                <input for="IdentityNumber" class="form-control" name="IdentityNumber" value="@Model.user.IdentityNumber"/>
+                <input asp-for="user.IdentityNumber" class="form-control" value="@Model.user.IdentityNumber"/>
+                <span asp-validation-for="user.IdentityNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="Birthplace" class="control-label">Место рождения</label>
-                <input for="Birthplace" class="form-control" name="Birthplace" value="@Model.user.Birthplace"/>
+                <input asp-for="user.Birthplace" class="form-control" value="@Model.user.Birthplace"/>
+                <span asp-validation-for="user.Birthplace" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="City" class="control-label">Город проживания</label>
-                <select for="CityId" asp-for="user.CityId" name="CityId" asp-items="@(new SelectList(Model.info.Cities, "Id", "Name"))">
+                <select asp-for="user.CityId" asp-items="@(new SelectList(Model.info.Cities, "Id", "Name"))">
                     <option>Выберите одно</option>
                 </select>
+                <span asp-validation-for="user.CityId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="Address" class="control-label">Адрес проживания</label>
-                <input for="Address" class="form-control" name="Address" value="@Model.user.Address"/>
+                <input asp-for="user.Address" class="form-control" value="@Model.user.Address"/>
+                <span asp-validation-for="user.Address" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="PhoneHome" class="control-label">Телефон дом</label>
-                <input for="PhoneHome" class="form-control" name="PhoneHome" value="@Model.user.PhoneHome"/>
+                <input asp-for="user.PhoneHome" class="form-control" value="@Model.user.PhoneHome"/>
+                <span asp-validation-for="user.PhoneHome" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="PhoneMobile" class="control-label">Телефон моб</label>
-                <input for="PhoneMobile" class="form-control" name="PhoneMobile" value="@Model.user.PhoneMobile"/>
+                <input asp-for="user.PhoneMobile" class="form-control" value="@Model.user.PhoneMobile"/>
+                <span asp-validation-for="user.PhoneMobile" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="Email" class="control-label">E-mail</label>
-                <input for="Email" class="form-control" name="Email" value="@Model.user.Email"/>
+                <input asp-for="user.Email" class="form-control" value="@Model.user.Email"/>
+                <span asp-validation-for="user.Email" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="Workplace" class="control-label">Место работы</label>
-                <input for="Workplace" class="form-control" name="Workplace" value="@Model.user.Workplace"/>
+                <input asp-for="user.Workplace" class="form-control" value="@Model.user.Workplace"/>
+                <span asp-validation-for="user.Workplace" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="WorkPosition" class="control-label">Должность</label>
-                <input for="WorkPosition" class="form-control" name="WorkPosition" value="@Model.user.WorkPosition"/>
+                <input asp-for="user.WorkPosition" class="form-control" value="@Model.user.WorkPosition"/>
+                <span asp-validation-for="user.WorkPosition" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="FamilyPosition" class="control-label">Семейное положение</label>
-                <select for="FamilyPositionId" asp-for="user.FamilyPositionId" name="FamilyPositionId" asp-items="@(new SelectList(Model.info.FamilyPositions, "Id", "Position"))">
+                <select asp-for="user.FamilyPositionId" asp-items="@(new SelectList(Model.info.FamilyPositions, "Id", "Position"))">
                     <option>Выберите одно</option>
                 </select>
+                <span asp-validation-for="user.FamilyPositionId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="Citizenship" class="control-label">Гражданство</label>
-                <select for="CitizenshipId" asp-for="user.CitizenshipId" name="CitizenshipId" asp-items="@(new SelectList(Model.info.Citizenships, "Id", "Name"))">
+                <select asp-for="user.CitizenshipId" asp-items="@(new SelectList(Model.info.Citizenships, "Id", "Name"))">
                     <option>Выберите одно</option>
                 </select>
+                <span asp-validation-for="user.CitizenshipId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="Disability" class="control-label">Инвалидность</label>
-                <select for="DisabilityId" asp-for="user.DisabilityId" name="DisabilityId" asp-items="@(new SelectList(Model.info.Disabilities, "Id", "Name"))">
+                <select asp-for="user.DisabilityId" asp-items="@(new SelectList(Model.info.Disabilities, "Id", "Name"))">
                     <option>Выберите одно</option>
                 </select>
+                <span asp-validation-for="user.DisabilityId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="Pensioner" class="control-label">Пенсионер</label>
-                <input type="checkbox" for="Pensioner" name="Pensioner" @pensionerCheck/>
+                <input type="checkbox" asp-for="user.Pensioner"/>
+                <span asp-validation-for="user.Pensioner" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="Income" class="control-label">Ежемесячный доход</label>
-                <input for="Income" class="form-control" name="Income" value="@Model.user.Income"/>
+                <input asp-for="user.Income" class="form-control" value="@Model.user.Income"/>
+                <span asp-validation-for="user.Income" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="Military" class="control-label">Военнообязанный</label>
-                <input type="checkbox" for="Military" name="Military" @militaryCheck/>
+                <input type="checkbox" asp-for="user.Military"/>
+                <span asp-validation-for="user.Military" class="text-danger"></span>
             </div>
         </div>
     </div>

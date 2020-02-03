@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using ServerApp.Models;
 using ServerApp.Services;
@@ -34,9 +35,14 @@ namespace ServerApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SaveUser(Employee user)
+        public async Task<IActionResult> SaveUser(Employee item1)
         {
-            await employeeService.CreateEmployee(user);
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("AddUser");
+            }
+
+            await employeeService.CreateEmployee(item1);
             return RedirectToAction("Index");
         }
 
@@ -49,15 +55,20 @@ namespace ServerApp.Controllers
 
 
         [Route("edit/{id}")]
-        public async Task<IActionResult> EditUser(string id)
+        public async Task<IActionResult> Edit(string id)
         {
-            return View((await employeeService.SingleEmployee(id), employeeService.GetCreationInfo()));
+            return View("EditUser", (await employeeService.SingleEmployee(id), employeeService.GetCreationInfo()));
         }      
         
         [HttpPost]
-        public async Task<IActionResult> Edit(Employee user)
+        public async Task<IActionResult> EditUser(Employee item1)
         {
-            await employeeService.EditEmployee(user.Id, user);
+            if (!ModelState.IsValid)    
+            {
+                return RedirectToAction("Edit");
+            }
+
+            await employeeService.EditEmployee(item1.Id, item1);
             return RedirectToAction("Index");
         }
 
