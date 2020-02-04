@@ -38,6 +38,7 @@ namespace ServerApp.Models
         public DateTime PassportGiveDate { get; set; }
 
         [Required(ErrorMessage = "Поле обязательно для заполнения")]
+        [StringLength(14, MinimumLength = 14, ErrorMessage = "Неверный формат идентификационного номера.")]
         public string IdentityNumber { get; set; }
 
         [Required(ErrorMessage = "Поле обязательно для заполнения")]
