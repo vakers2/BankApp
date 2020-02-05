@@ -1,6 +1,7 @@
 ﻿@model List<Employee>
 @{
     ViewData["Title"] = "Home Page";
+    Layout = "_Layout";
 
     string GetBoolString(bool kek)
     {
@@ -73,7 +74,7 @@
             <td>@GetBoolString(employee.Military)</td>
             <td>
                 <a href='/edit/@employee.Id'>Изменить</a>
-                <a href='/delete/@employee.Id'>Удалить</a>
+                <a class="delete" href='/delete/@employee.Id'>Удалить</a>
             </td>
         </tr>
     }
@@ -83,3 +84,13 @@
 <div class="form-group">
     <a href='/add/' style="margin-left: 30px">Добавить</a>
 </div>
+
+<script>
+    $(function() {
+        $(".delete").click(e => {
+            if (!confirm("Вы уверены, что хотите удалить пользователя?")) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>
