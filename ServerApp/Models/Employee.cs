@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ServerApp.Models
@@ -87,5 +88,7 @@ namespace ServerApp.Models
         public Citizenship Citizenship { get; set; }
 
         public Disability Disability { get; set; }
+
+        public List<Deposit> Deposits { get; set; }
     }
 }
