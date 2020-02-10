@@ -11,5 +11,7 @@ namespace ServerApp.Models
         public List<City> Cities { get; set; }
 
         public List<FamilyPosition> FamilyPositions { get; set; }
+
+        public List<Currency> Currencies { get; set; }
     }
 }

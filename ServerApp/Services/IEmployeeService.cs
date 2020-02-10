@@ -13,5 +13,6 @@ namespace ServerApp.Services
         Task<bool> DeleteEmployee(string id);
         bool CheckIfPassportExist(Employee user);
         Info GetCreationInfo();
+        List<Currency> GetCurrencies();
     }
 }

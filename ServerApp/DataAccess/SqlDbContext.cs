@@ -15,5 +15,6 @@ namespace ServerApp.DataAccess
         public DbSet<Disability> Disability { get; set; }
         public DbSet<FamilyPosition> FamilyPosition { get; set; }
         public DbSet<Deposit> Deposit { get; set; }
+        public DbSet<Currency> Currency { get; set; }
     }
 }

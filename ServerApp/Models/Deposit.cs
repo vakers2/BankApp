@@ -11,7 +11,7 @@ namespace ServerApp.Models
         public int Id { get; set; }
 
         [Display(Name = "Номер договора")]
-        public int ContractNumber { get; set; }
+        public string ContractNumber { get; set; }
 
         [Display(Name = "Тип")]
         public DepositType Type { get; set; }
@@ -26,6 +26,7 @@ namespace ServerApp.Models
         [Display(Name = "Срок договора")]
         public int ContractTerm { get; set; }
 
+        [Display(Name = "Сумма")]
         public float StartSum { get; set; }
         public float Sum { get; set; }
 

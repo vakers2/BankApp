@@ -8,43 +8,40 @@
 <h1>Депозиты</h1>
 
 <p>
-    <a asp-action="Create">Создать</a>
+    <a href="/deposits/create/@ViewBag.UserId">Создать</a>
 </p>
 <table class="table">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ContractNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Type)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EndDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ContractTerm)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Sum)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Percent)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Currency)
-            </th>
-            <th></th>
-        </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ContractNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContractTerm) (месяц)
+        </th>
+        <th>
+            Сумма
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Percent)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Currency)
+        </th>
+        <th></th>
+    </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+    @foreach (var item in Model) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.ContractNumber)
@@ -62,22 +59,30 @@
                 @Html.DisplayFor(modelItem => item.ContractTerm)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.StartSum)
+                @Html.DisplayFor(modelItem => item.Sum)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Percent)
+                @Html.DisplayFor(modelItem => item.Percent)%
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.Id)
+                @Html.DisplayFor(modelItem => item.Currency.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Currency.Id)
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a class="take" id="@item.Id" asp-action="TakeMoney" asp-route-id="@item.Id">Погасить</a>
             </td>
         </tr>
-}
+    }
     </tbody>
 </table>
+<a href="/deposits/calculate/@ViewBag.UserId">Вычислить</a>
+
+<script>
+    $(function() {
+        $(".take").click((e) => {
+            e.preventDefault();
+            $.post("/deposits/take/" + e.target.id).done(() => {
+                if(!alert('Вычисления успешно произведены.')){window.location.reload();}
+            });
+        });
+    });
+</script>

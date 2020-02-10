@@ -69,8 +69,14 @@ namespace ServerApp.Services
                 Citizenships = _dbContext.Citizenship.ToList(),
                 Disabilities = _dbContext.Disability.ToList(),
                 Cities = _dbContext.City.ToList(),
-                FamilyPositions = _dbContext.FamilyPosition.ToList()
+                FamilyPositions = _dbContext.FamilyPosition.ToList(),
+                Currencies = _dbContext.Currency.ToList()
             };
+        }
+
+        public List<Currency> GetCurrencies()
+        {
+            return _dbContext.Currency.ToList();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model ServerApp.Models.Deposit
+﻿@model (ServerApp.Models.Deposit deposit, Info info)
 
 @{
     ViewData["Title"] = "Create";
@@ -14,48 +14,48 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="ContractNumber" class="control-label"></label>
-                <input asp-for="ContractNumber" class="form-control" />
-                <span asp-validation-for="ContractNumber" class="text-danger"></span>
+                <label asp-for="deposit.ContractNumber" class="control-label"></label>
+                <input asp-for="deposit.ContractNumber" class="form-control" />
+                <span asp-validation-for="deposit.ContractNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Type" class="control-label"></label>
-                <select asp-for="Type" class="form-control"></select>
-                <span asp-validation-for="Type" class="text-danger"></span>
+                <label asp-for="deposit.Type" class="control-label"></label>
+                <select asp-for="deposit.Type" asp-items="Html.GetEnumSelectList<DepositType>()" class="form-control"></select>
+                <span asp-validation-for="deposit.Type" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CurrencyId" class="control-label"></label>
-                <select asp-for="CurrencyId" class ="form-control" asp-items="ViewBag.CurrencyId"></select>
+                <label for="CurrencyId" class="control-label">Валюта</label>
+                <select asp-for="deposit.CurrencyId" asp-items="@(new SelectList(Model.info.Currencies, "Id", "Name"))">
+                    <option value="0">Выберите одно</option>
+                </select>
+                <div><span asp-validation-for="deposit.CurrencyId" class="text-danger"></span></div>
             </div>
             <div class="form-group">
-                <label asp-for="StartDate" class="control-label"></label>
-                <input asp-for="StartDate" class="form-control" />
-                <span asp-validation-for="StartDate" class="text-danger"></span>
+                <label asp-for="deposit.StartDate" class="control-label"></label>
+                <input asp-for="deposit.StartDate" class="form-control" />
+                <span asp-validation-for="deposit.StartDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="EndDate" class="control-label"></label>
-                <input asp-for="EndDate" class="form-control" />
-                <span asp-validation-for="EndDate" class="text-danger"></span>
+                <label asp-for="deposit.EndDate" class="control-label"></label>
+                <input asp-for="deposit.EndDate" class="form-control" />
+                <span asp-validation-for="deposit.EndDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ContractTerm" class="control-label"></label>
-                <input asp-for="ContractTerm" class="form-control" />
-                <span asp-validation-for="ContractTerm" class="text-danger"></span>
+                <label asp-for="deposit.ContractTerm" class="control-label"></label>
+                <input asp-for="deposit.ContractTerm" class="form-control" />
+                <span asp-validation-for="deposit.ContractTerm" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Sum" class="control-label"></label>
-                <input asp-for="Sum" class="form-control" />
-                <span asp-validation-for="Sum" class="text-danger"></span>
+                <label asp-for="deposit.StartSum" class="control-label"></label>
+                <input asp-for="deposit.StartSum" class="form-control" />
+                <span asp-validation-for="deposit.StartSum" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Percent" class="control-label"></label>
-                <input asp-for="Percent" class="form-control" />
-                <span asp-validation-for="Percent" class="text-danger"></span>
+                <label asp-for="deposit.Percent" class="control-label"></label>
+                <input asp-for="deposit.Percent" class="form-control" />
+                <span asp-validation-for="deposit.Percent" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <select asp-for="UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
-            </div>
+            <input type="hidden" name="item1.userId" value="@ViewBag.UserId"/>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

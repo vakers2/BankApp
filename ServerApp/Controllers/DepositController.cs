@@ -7,16 +7,52 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ServerApp.DataAccess;
 using ServerApp.Models;
+using ServerApp.Services;
 
 namespace ServerApp.Controllers
 {
     public class DepositController : Controller
     {
         private readonly SqlDbContext _context;
+        private readonly IEmployeeService _employeeService;
 
-        public DepositController(SqlDbContext context)
+        public DepositController(SqlDbContext context, IEmployeeService employeeService)
         {
             _context = context;
+            _employeeService = employeeService;
+        }
+
+        [Route("deposits/calculate/{id}")]
+        public IActionResult Calculate(string id)
+        {
+            foreach (var deposit in _context.Deposit.ToList())
+            {
+                deposit.Sum += deposit.Sum * deposit.Percent / 100;
+                _context.Update(deposit);
+            }
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index), new {id});
+        }
+
+        [HttpPost]
+        [Route("deposits/take/{id}")]
+        public IActionResult TakeMoney(int id)
+        {
+            if (!DepositExists(id)) return BadRequest();
+            var deposit = _context.Deposit.FirstOrDefault(x => x.Id == id);
+            if (deposit?.Type == DepositType.Monthly)
+            {
+                deposit.Sum = deposit.StartSum;
+                _context.Update(deposit);
+            }
+
+            if (deposit?.Type == DepositType.Urgent)
+            {
+                _context.Deposit.Remove(deposit);
+            }
+
+            _context.SaveChanges();
+            return Ok();
         }
 
         // GET: Deposit
@@ -24,35 +60,16 @@ namespace ServerApp.Controllers
         public async Task<IActionResult> Index(string id)
         {
             var sqlDbContext = _context.Deposit.Include(d => d.Currency).Include(d => d.User).Where(x => x.UserId == id);
+            ViewBag.UserId = id;
             return View(await sqlDbContext.ToListAsync());
         }
 
-        // GET: Deposit/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var deposit = await _context.Deposit
-                .Include(d => d.Currency)
-                .Include(d => d.User)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (deposit == null)
-            {
-                return NotFound();
-            }
-
-            return View(deposit);
-        }
-
         // GET: Deposit/Create
-        public IActionResult Create()
+        [Route("deposits/create/{id}")]
+        public IActionResult Create(string id)
         {
-            ViewData["CurrencyId"] = new SelectList(_context.Set<Currency>(), "Id", "Id");
-            ViewData["UserId"] = new SelectList(_context.Employees, "Id", "Id");
-            return View();
+            ViewBag.UserId = id;
+            return View((new Deposit(), _employeeService.GetCreationInfo()));
         }
 
         // POST: Deposit/Create
@@ -60,103 +77,19 @@ namespace ServerApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ContractNumber,Type,CurrencyId,StartDate,EndDate,ContractTerm,Sum,Percent,UserId")] Deposit deposit)
+        [Route("deposits/create/{id}")]
+        public async Task<IActionResult> Create(Deposit item1)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(deposit);
+                item1.Sum = item1.StartSum;
+                _context.Add(item1);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { id = item1.UserId });
             }
-            ViewData["CurrencyId"] = new SelectList(_context.Set<Currency>(), "Id", "Id", deposit.CurrencyId);
-            ViewData["UserId"] = new SelectList(_context.Employees, "Id", "Id", deposit.UserId);
-            return View(deposit);
-        }
-
-        // GET: Deposit/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var deposit = await _context.Deposit.FindAsync(id);
-            if (deposit == null)
-            {
-                return NotFound();
-            }
-            ViewData["CurrencyId"] = new SelectList(_context.Set<Currency>(), "Id", "Id", deposit.CurrencyId);
-            ViewData["UserId"] = new SelectList(_context.Employees, "Id", "Id", deposit.UserId);
-            return View(deposit);
-        }
-
-        // POST: Deposit/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ContractNumber,Type,CurrencyId,StartDate,EndDate,ContractTerm,Sum,Percent,UserId")] Deposit deposit)
-        {
-            if (id != deposit.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(deposit);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!DepositExists(deposit.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["CurrencyId"] = new SelectList(_context.Set<Currency>(), "Id", "Id", deposit.CurrencyId);
-            ViewData["UserId"] = new SelectList(_context.Employees, "Id", "Id", deposit.UserId);
-            return View(deposit);
-        }
-
-        // GET: Deposit/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var deposit = await _context.Deposit
-                .Include(d => d.Currency)
-                .Include(d => d.User)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (deposit == null)
-            {
-                return NotFound();
-            }
-
-            return View(deposit);
-        }
-
-        // POST: Deposit/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var deposit = await _context.Deposit.FindAsync(id);
-            _context.Deposit.Remove(deposit);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            ViewData["CurrencyId"] = new SelectList(_context.Set<Currency>(), "Id", "Id", item1.CurrencyId);
+            ViewData["UserId"] = new SelectList(_context.Employees, "Id", "Id", item1.UserId);
+            return View();
         }
 
         private bool DepositExists(int id)

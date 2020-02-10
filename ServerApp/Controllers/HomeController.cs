@@ -13,12 +13,10 @@ namespace ServerApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly IEmployeeService employeeService;
 
         public HomeController(ILogger<HomeController> logger, IEmployeeService employeeService)
         {
-            _logger = logger;
             this.employeeService = employeeService;
         }
 
