@@ -41,7 +41,9 @@
     </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model) {
+    @foreach (var item in Model)
+    {
+        var action = item.Type == DepositType.Monthly ? "Вернуть проценты" : "Забрать депозит";
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.ContractNumber)
@@ -68,7 +70,7 @@
                 @Html.DisplayFor(modelItem => item.Currency.Name)
             </td>
             <td>
-                <a class="take" id="@item.Id" asp-action="TakeMoney" asp-route-id="@item.Id">Погасить</a>
+                <a class="take" id="@item.Id" asp-action="TakeMoney" asp-route-id="@item.Id">@action</a>
             </td>
         </tr>
     }

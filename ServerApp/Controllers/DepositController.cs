@@ -27,7 +27,10 @@ namespace ServerApp.Controllers
         {
             foreach (var deposit in _context.Deposit.ToList())
             {
-                deposit.Sum += deposit.Sum * deposit.Percent / 100;
+                var percent = deposit.Type == DepositType.Monthly
+                    ? deposit.Percent / 100
+                    : deposit.Percent / deposit.ContractTerm / 100;
+                deposit.Sum += deposit.Sum * percent;
                 _context.Update(deposit);
             }
             _context.SaveChanges();
