@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ServerApp.Models
 {
-    public class Deposit
+    public class Credit
     {
         public int Id { get; set; }
 
@@ -14,7 +14,7 @@ namespace ServerApp.Models
         public string ContractNumber { get; set; }
 
         [Display(Name = "Тип")]
-        public DepositType Type { get; set; }
+        public CreditType Type { get; set; }
 
         public int CurrencyId { get; set; }
         

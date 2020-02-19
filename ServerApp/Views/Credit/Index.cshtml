@@ -1,0 +1,102 @@
+﻿@model IEnumerable<ServerApp.Models.Credit>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Кредиты</h1>
+
+<p>
+    <a href="/credits/create/@ViewBag.UserId">Создать</a>
+</p>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ContractNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContractTerm) (месяц)
+        </th>
+        <th>
+            Сумма
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Percent)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Currency)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        var action = item.Type == CreditType.Monthly ? "Вернуть проценты" : "Забрать депозит";
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContractNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContractTerm)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Percent)%
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Currency.Name)
+            </td>
+            <td>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+<a href="/credits/calculate/@ViewBag.UserId">Вычислить</a>
+
+<script>
+    $(function() {
+        $(".take").click((e) => {
+            e.preventDefault();
+            $.post("/deposits/take/" + e.target.id).done(() => {
+                if(!alert('Вычисления успешно произведены.')){window.location.reload();}
+            });
+        });
+
+        $.urlParam = function (name) {
+            var results = new RegExp('[\?&]' + name + '=([^&#]*)')
+                .exec(window.location.href);
+            if (results == null) {
+                return 0;
+            }
+            return results[1] || 0;
+        }
+
+        if ($.urlParam('takenValue')) {
+            alert('С вас сняли ' + $.urlParam('takenValue') + '$ на оплату кредитов.');
+        }
+    });
+</script>
