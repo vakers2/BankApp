@@ -17,5 +17,6 @@ namespace ServerApp.DataAccess
         public DbSet<Deposit> Deposit { get; set; }
         public DbSet<Credit> Credit { get; set; }
         public DbSet<Currency> Currency { get; set; }
+        public DbSet<CreditCard> Cards { get; set; }
     }
 }

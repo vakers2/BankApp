@@ -1,0 +1,31 @@
+﻿@model string
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_Layout";
+}
+
+@if (User.Identity.IsAuthenticated)
+{            
+    <div class="form-group bankomat-choice">
+        <input type="submit" value="Узнать текущий счет" class="bankomat-btn form-control btn btn-primary" style="width: 90%"/>
+        <input type="submit" value="Снять текущий счет" class="bankomat-btn form-control btn btn-primary" style="width: 90%"/>
+        <form asp-action="Logout" method="post">
+            <input type="submit" value="Забрать карту" class="bankomat-btn form-control btn btn-primary" style="width: 90%" />
+        </form>
+    </div>
+}
+else
+{
+    <form asp-action="Index" method="post">
+        <div class="bankomat-auth">
+            <p>Вставьте, пожалуйста карту</p>
+            <p>(введите ее номер)</p>
+            <div class="form-group bankomat-auth__input">
+                <input class="form-control" name="id" style="float: left; width: 80%;"/>
+                <input type="submit" value="Ввести" class="btn btn-primary" style="float: left;"/>
+            </div>
+            <p><span class="text-danger">@Model</span></p>
+        </div>
+    </form>
+}
+
