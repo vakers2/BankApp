@@ -1,0 +1,17 @@
+﻿@model string
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_Layout";
+}
+
+<form asp-action="Take" method="post">
+    <div class="bankomat-auth">
+        <p>Введите сумму, которую хотите снять:</p>
+        <div class="form-group bankomat-auth__input">
+            <input class="form-control" name="sum" style="float: left; width: 80%;"/>
+            <input type="submit" value="Снять" class="btn btn-primary" style="float: left;"/>
+        </div>
+        <p style="margin-top: 10px; display: inline-block;"><span class="text-danger">@Model</span></p>
+    </div>
+</form>
+<a href="@Url.Action("Index")" class="bankomat-btn form-control btn btn-primary" style="color: white; width: 25%; margin: auto; margin-top: 20px">Назад</a>

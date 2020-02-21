@@ -14,18 +14,11 @@
         </form>
     </div>
 }
-else
-{
-    <form asp-action="Index" method="post">
-        <div class="bankomat-auth">
-            <p>Вставьте, пожалуйста карту</p>
-            <p>(введите ее номер)</p>
-            <div class="form-group bankomat-auth__input">
-                <input class="form-control" name="id" style="float: left; width: 80%;"/>
-                <input type="submit" value="Ввести" class="btn btn-primary" style="float: left;"/>
-            </div>
-            <p style="margin-top: 10px; display: inline-block;"><span class="text-danger">@Model</span></p>
-        </div>
-    </form>
-}
 
+<script>
+    $(function () {
+        setTimeout(function() {
+            alert("Операция была успешно завершена!");
+        }, 1000);
+    })
+</script>

@@ -1,0 +1,11 @@
+﻿@model int?
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_Layout";
+}
+
+         
+<div class="form-group bankomat-choice">
+    <p style="color: white">Ваш баланс: @Model</p>
+</div>
+<a href="@Url.Action("Index")" class="bankomat-btn form-control btn btn-primary" style="color: white; width: 50%; margin: auto">Назад</a>

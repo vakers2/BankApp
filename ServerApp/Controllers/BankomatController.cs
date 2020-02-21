@@ -25,6 +25,12 @@ namespace ServerApp.Controllers
             return View();
         }
 
+        [Route("bankomat/success")]
+        public IActionResult Success()
+        {
+            return View();
+        }
+
         [HttpPost]
         [Route("bankomat")]
         public async Task<IActionResult> Index(string id)
@@ -43,7 +49,7 @@ namespace ServerApp.Controllers
                     CookieAuthenticationDefaults.AuthenticationScheme,
                     new ClaimsPrincipal(claimsIdentity));
 
-                return View();
+                return RedirectToAction(nameof(Index));
             }
 
             return View(nameof(Index), "Карты с такими данными не существует.");
@@ -56,6 +62,38 @@ namespace ServerApp.Controllers
             await HttpContext.SignOutAsync();
 
             return RedirectToAction(nameof(Index));
+        }
+
+        [Route("bankomat/status")]
+        public IActionResult Status()
+        {
+            var cardNumber = User.Identity.Name;
+            var card = context.Cards.FirstOrDefault(x => x.CardNumber == cardNumber);
+            return View(card?.CardBalance);
+        }   
+
+        [Route("bankomat/take")]
+        public IActionResult Take()
+        {
+            return View();
+        }       
+        
+        [HttpPost]
+        [Route("bankomat/take")]
+        public IActionResult Take(int sum)
+        {
+            var cardNumber = User.Identity.Name;
+            var card = context.Cards.FirstOrDefault(x => x.CardNumber == cardNumber);
+            if (sum > card?.CardBalance)
+            {
+                return View(nameof(Take), "У вас недостаточно средств!");
+            }
+
+            card.CardBalance -= sum;
+            context.Cards.Update(card);
+            context.SaveChanges();
+
+            return RedirectToAction(nameof(Success));
         }
     }
 }
